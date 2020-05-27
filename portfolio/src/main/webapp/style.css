@@ -19,7 +19,7 @@
 
 #otherFamilyImage {
     width: 400px;
-    height: 435px;
+    height: 445px;
 }
 
 .mainbody{
@@ -28,7 +28,7 @@
 .family-layout{
     display: flex; 
     flex-wrap: wrap;
-    justify-content:center;
+    justify-content:left;
 }
 
 .family-layout img {
