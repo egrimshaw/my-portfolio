@@ -4,6 +4,37 @@
   width: 650px;
 }
 
-#greeting-container {
+#fact-container {
   margin-top: 20px;
 }
+
+#profilePic{
+    max-width: 300px;
+    max-height: 300px;
+    margin-left: auto;
+    margin-right: auto; 
+    display: block; 
+    
+}
+
+#otherFamilyImage {
+    width: 400px;
+    height: 435px;
+}
+
+.mainbody{
+    background-color:skyblue;
+}
+.family-layout{
+    display: flex; 
+    flex-wrap: wrap;
+    justify-content:center;
+}
+
+.family-layout img {
+    margin: 10px;
+    width: 475px;
+    height: 390px; 
+}
+
+
