@@ -22,6 +22,26 @@
     height: 445px;
 }
 
+#bucketListTitle{
+    text-align: center;
+    font-weight: bold;
+}
+
+#bucketImage{
+    width: 475px;
+    height: 445px;
+}
+
+#friendsImage {
+    width: 520px;
+    height: 445px; 
+}
+
+#brunchImage{
+    width: 450px;
+    height: 445px;
+}
+
 .mainbody{
     background-color:skyblue;
 }
