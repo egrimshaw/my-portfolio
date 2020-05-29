@@ -22,9 +22,19 @@ function addRandomFact() {
        'I love dark chocolate.'];
 
   // Pick a random greeting.
-  const fact = facts[Math.floor(Math.random() * facts.length)];
+  var fact = facts[Math.floor(Math.random() * facts.length)];
 
   // Add it to the page.
   const factContainer = document.getElementById('fact-container');
+  while (factContainer.innerHTML === fact){
+    fact = facts[Math.floor(Math.random() * facts.length)];
+  }
   factContainer.innerText = fact;
+}
+
+function addNavBar(){
+    let template = document.getElementById('nav-bar');
+    console.log(template);
+    let templateContent = document.importNode(template.content, true);
+    document.body.prepend(templateContent);
 }
