@@ -6,6 +6,7 @@
 
 #fact-container {
   margin-top: 20px;
+  color:white;
 }
 
 #profilePic{
@@ -42,8 +43,110 @@
     height: 445px;
 }
 
+#quoteTopLeft{
+    font-size: 22px;
+    position: absolute;
+    top: 70px;
+    left: 50px;
+}
+
+#quoteMidLeft{
+    font-size: 22px;
+    position: absolute;
+    top: 360px;
+    left: 75px;
+}
+
+#quoteMid{
+    font-size: 22px;
+    position: absolute;
+    top: 220px;
+}
+
+#quoteBottom{
+    font-size: 22px;
+    position: absolute;
+    bottom: 130px; 
+}
+
+#welcomeMessage{
+    color: white;
+    text-align: center;
+}
+
+
+#welcomeText{
+    color: white; 
+    text-align: left;
+}
+
+#liImage{
+    height: 30px;
+    width: 30px;
+}
+
+#githubImage{
+    height: 30px;
+    width: 60px;
+    color: grey;
+}
+
+.ul-bar {
+  width: 100%;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  
+}
+
+.li-bar {
+  float: left;
+}
+
+.li-bar a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.li-bar a:hover:not(.active) {
+  background-color: grey;
+}
+
+.li-bar a.active {
+  color: white;
+  background-color: SlateGrey;
+}
+
+.grid-container {
+  display: grid;
+  grid-row-gap: 50px;
+  grid-template-columns: auto auto auto;
+  padding: 10px;
+}
+
+.grid-item {
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
+  color: white;
+} 
+    
+.quotebody{
+    background-image: url('/images/books.jpg');
+    background-size: cover;
+}
+
 .mainbody{
     background-color:skyblue;
+}
+
+.homebody {
+    background-image: url('/images/boston.jpg');
+    background-size: cover;
 }
 .family-layout{
     display: flex; 
