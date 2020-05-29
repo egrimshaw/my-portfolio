@@ -6,29 +6,32 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
-  <body class = "homebody">
-      <div class = "ul-bar">
-         <p class = "li-bar"><a class="active" href="#home">Home</a></p>
-         <p class = "li-bar"><a href="family.html">My Family</a></p>
-         <p class = "li-bar"><a href="bucketlist.html">My Bucket List</a></p>
-         <p class = "li-bar"><a href="quotes.html">My Favorite Quotes</a></p>
+  <body class = "home-body">
+      <div class = "nav">
+         <button class = "button-nav-bar"><a class = "link-nav-bar" href="index.html">Home</a></button>
+         <button class = "button-nav-bar"><a class = "link-nav-bar" href="family.html">My Family</a></button>
+         <button class = "button-nav-bar"><a class = "link-nav-bar" href="bucketlist.html">My Bucket List</a></button>
+         <button class = "button-nav-bar"><a class = "link-nav-bar" href="quotes.html">My Favorite Quotes</a></button>
       </div>
       <div id = "content">
       <h1  id = "welcomeMessage">Welcome to Evie's Portfolio!</h1>
+      <div class = "grid-container-main">
       <p id = "welcomeText"><img id = "profilePic" src = "/images/ProfileImage.jpg" alt = "Evie's profile picture"></p>
-      <p id = "welcomeText"> Hi! My name is Evie Grimshaw. I was born in London, but moved to Boston, MA when my mom remarried. 
+      <p id = "welcomeText"> Hi! My name is Evie Grimshaw. I was born in London, but moved to Boston when my mom remarried. 
           I have six siblings (I am the fifth child), so it is always a bit crazy in our house. 
-          Currently, I am a rising junior at Brown University and study
+          Currently, I am a rising junior at Brown University and studying
           Computer Science and Economics. Outside of classes, I am the chair of the on-campus
-          business education committee for Women in Business and I love to exercise. I am beyond
+          business education committee for Women in Business, and I love to exercise. I am beyond
           excited to work on the ASA team and at Google this summer (even if we are remote)!
+      </div>
       <p id = "welcomeText">Click here to read a random fact about me:</p>
       <button onclick="addRandomFact()">Fun Fact!</button>
       <div id="fact-container"></div>
-      <div class = "grid-container">
+      <div class = "grid-container-bottom">
           <div class = "grid-item"><a href = "https://www.linkedin.com/in/evangeline-grimshaw-024269169"><img id = "liImage" src = "/images/LI-In-Bug.png" alt = "LinkedIn"></a></div>
-          <div class = "grid-item"><a href = "https://github.com/egrimshaw"><img id = "githubImage" src = "/images/GitHub_Logo.png" alt = "Github"></a></div>
+          <div class = "grid-item"><a href = "https://github.com/egrimshaw"><img id = "githubImage" src = "/images/GitHub_Logo_White.png" alt = "Github"></a></div>
+          <div class = "grid-item"><a id = "resume" href = "/images/Resume.pdf">Resume</a>
       </div>
     </div>
-  </body>
+</body>
 </html>

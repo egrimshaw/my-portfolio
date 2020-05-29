@@ -46,7 +46,7 @@
 #quoteTopLeft{
     font-size: 22px;
     position: absolute;
-    top: 70px;
+    top: 85px;
     left: 50px;
 }
 
@@ -91,63 +91,69 @@
     color: grey;
 }
 
-.ul-bar {
-  width: 100%;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  
+#resume {
+    font-size: 20px;
+    color: white;
+    text-decoration: none;
 }
 
-.li-bar {
-  float: left;
+.nav {
+    width: 100%;
+    display: flex; 
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+    
 }
 
-.li-bar a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
+.button-nav-bar{
+    background-color: transparent;
+    border: none;
 }
 
-.li-bar a:hover:not(.active) {
-  background-color: grey;
+.link-nav-bar{
+    color: white;
+    text-decoration: none; 
 }
 
-.li-bar a.active {
-  color: white;
-  background-color: SlateGrey;
+a:hover {
+    text-decoration: underline;
 }
 
-.grid-container {
+.grid-container-bottom {
   display: grid;
-  grid-row-gap: 50px;
   grid-template-columns: auto auto auto;
+  grid-gap: 20px;
   padding: 10px;
 }
 
+.grid-container-main{
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 15px; 
+    padding: 10px;
+}
+
 .grid-item {
-  padding: 20px;
   font-size: 30px;
   text-align: center;
   color: white;
 } 
     
-.quotebody{
+.quote-body{
     background-image: url('/images/books.jpg');
     background-size: cover;
 }
 
-.mainbody{
+.main-body{
     background-color:skyblue;
 }
 
-.homebody {
+.home-body {
     background-image: url('/images/boston.jpg');
     background-size: cover;
 }
+
 .family-layout{
     display: flex; 
     flex-wrap: wrap;
@@ -158,6 +164,10 @@
     margin: 10px;
     width: 475px;
     height: 390px; 
+}
+
+.ul-no-bullet{
+    list-style-type: none;
 }
 
 
