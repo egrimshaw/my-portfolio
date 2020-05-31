@@ -13,7 +13,7 @@
 // limitations under the License.
 
 /**
- * Adds a random greeting to the page.
+ * Adds a random fact to the page.
  */
 function addRandomFact() {
   const facts =
@@ -21,20 +21,24 @@ function addRandomFact() {
        'I am learning to bake.', 'I have watched Greys Anatomy all the way through at least five times.', 
        'I love dark chocolate.'];
 
-  // Pick a random greeting.
+  // Pick a random fact.
   var fact = facts[Math.floor(Math.random() * facts.length)];
 
-  // Add it to the page.
+  // Ensure that the same fact isn't repeated. 
   const factContainer = document.getElementById('fact-container');
   while (factContainer.innerHTML === fact){
     fact = facts[Math.floor(Math.random() * facts.length)];
   }
+ 
+  //Add to page.
   factContainer.innerText = fact;
 }
 
+//Add nav bar to each page
 function addNavBar(){
+    //Get the template from the HTML file.
     let template = document.getElementById('nav-bar');
-    console.log(template);
+    //Add to top of page. 
     let templateContent = document.importNode(template.content, true);
     document.body.prepend(templateContent);
 }

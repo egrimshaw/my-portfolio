@@ -1,3 +1,4 @@
+<!-- This is the HTML for the quote page -->
 <!DOCTYPE html>
 <html>
   <head>
@@ -5,12 +6,15 @@
     <title>Favorite Quotes</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <!-- Using Google's CDN library for jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   </head>
   <body class = "quote-body">
+    <!-- add in nav bar at top of page from template -->
     <div id = "nav"> </div>
     <script> $(document).ready(function(){$("#nav").load("navbar.html")}); </script>
     <div id = "content">
+        <!-- list of quotes positioned with css -->
         <h1><i>Favorite Quotes</i></h1>
         <p id = "quoteTopLeft"><q>True love lasts a lifetime.</q> -Love Actually</p>
         <p id = "quoteMidLeft"><q>Happiness depends on ourselves.</q> -Aristotle</p>
