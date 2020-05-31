@@ -5,14 +5,11 @@
     <title>My Family</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
+     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
   </head>
   <body class = "main-body">
-    <div class = "nav">
-        <button class = "button-nav-bar"><a class = "link-nav-bar" href="index.html">Home</a></button>
-        <button class = "button-nav-bar"><a class = "link-nav-bar" href="family.html">My Family</a></button>
-        <button class = "button-nav-bar"><a class = "link-nav-bar" href="bucketlist.html">My Bucket List</a></button>
-        <button class = "button-nav-bar"><a class = "link-nav-bar" href="quotes.html">My Favorite Quotes</a></button>
-    </div>
+    <div id = "nav"> </div>
+    <script> $(document).ready(function(){$("#nav").load("navbar.html")}); </script>
     <div id="content">
         <h1><i> Family  Gallery </i></h1>
         <p><q>Blood doesn't make someone family. Love is what makes a family.</q> -Nichole Chase </p>
