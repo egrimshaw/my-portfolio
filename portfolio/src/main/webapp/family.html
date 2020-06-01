@@ -1,3 +1,4 @@
+<!-- This is the HTML for the family page. -->
 <!DOCTYPE html>
 <html>
   <head>
@@ -5,9 +6,11 @@
     <title>My Family</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
-     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <!-- using Google's CDN library for jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   </head>
   <body class = "main-body">
+    <!-- load in nav bar from template -->
     <div id = "nav"> </div>
     <script> $(document).ready(function(){$("#nav").load("navbar.html")}); </script>
     <div id="content">
@@ -19,6 +22,7 @@
             are seven of us, a mix of Asian, American, and British. We may not all look alike, but side
             by side, we create the Chungshaws. 
         <div class = "family-layout">
+            <!-- list of family images without bullets or numbering, styled with css -->
             <div class = "ul-no-bullet">
                 <li> Family Portrait: </li>
                 <img src = "/images/FamilyGarden.jpg" alt = "Family Portrait">

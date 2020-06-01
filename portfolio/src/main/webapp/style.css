@@ -1,14 +1,21 @@
+/*
+This is the CSS file containing all the styles used throughout the code.
+*/
+
+/*This is the style used for all pages text.*/
 #content {
   margin-left: auto;
   margin-right: auto;
   width: 650px;
 }
 
+/*This is the style for the fun fact output.*/
 #fact-container {
   margin-top: 20px;
   color:white;
 }
 
+/*This is the style for the profile picture on the main page.*/
 #profilePic{
     max-width: 300px;
     max-height: 300px;
@@ -18,31 +25,38 @@
     
 }
 
+/*This is the style for a few of the family images that didn't fit the other 
+specifications. */
 #otherFamilyImage {
     width: 400px;
     height: 445px;
 }
 
+/*This is the style for the header of the bucket list page.*/
 #bucketListTitle{
     text-align: center;
     font-weight: bold;
 }
 
+/*This is the style for a few of the images on the bucket list page.*/
 #bucketImage{
     width: 475px;
     height: 445px;
 }
 
+/*This is the style for the friends picture on the bucket list page.*/
 #friendsImage {
     width: 520px;
     height: 445px; 
 }
 
+/*This is the style for the brunch picture on the bucket list page.*/
 #brunchImage{
     width: 450px;
     height: 445px;
 }
 
+/*This is the alignment for the quote on the top left on the quotes page.*/
 #quoteTopLeft{
     font-size: 22px;
     position: absolute;
@@ -50,6 +64,7 @@
     left: 50px;
 }
 
+/*This is the alignment for the quote in the middle on the left on the quotes page.*/
 #quoteMidLeft{
     font-size: 22px;
     position: absolute;
@@ -57,46 +72,53 @@
     left: 75px;
 }
 
+/*This is the alginment for the quote in the middle of the quotes page.*/
 #quoteMid{
     font-size: 22px;
     position: absolute;
     top: 220px;
 }
 
+/*This is the alignment for the quote on the bottom of the quotes page.*/
 #quoteBottom{
     font-size: 22px;
     position: absolute;
     bottom: 130px; 
 }
 
+/*This is the style for the welcome message on the main page.*/
 #welcomeMessage{
     color: white;
     text-align: center;
 }
 
-
+/*This is the style for the profile pic and about me text on the main page*/
 #welcomeText{
     color: white; 
     text-align: left;
 }
 
+/*This is the style for the LinkedIn logo on the main page.*/
 #liImage{
     height: 30px;
-    width: 30px;
+    width: 40px;
 }
 
+/*This is the style for the Github logo on the main page.*/
 #githubImage{
     height: 30px;
     width: 60px;
     color: grey;
 }
 
+/*This is the style for the resume link on the main page.*/
 #resume {
     font-size: 20px;
     color: white;
     text-decoration: none;
 }
 
+/*This is the class for the nav bar.*/
 .nav {
     width: 100%;
     display: flex; 
@@ -106,20 +128,24 @@
     
 }
 
+/*This is the class for the button on the nav bar.*/
 .button-nav-bar{
     background-color: transparent;
     border: none;
 }
 
+/*This is the class for the link on the nav bar*/
 .link-nav-bar{
     color: white;
     text-decoration: none; 
 }
 
+/*This is the style for when you hover over a link on the nav bar.8*/
 a:hover {
     text-decoration: underline;
 }
 
+/*This is the style for the grid for the links at bottom of main page.*/
 .grid-container-bottom {
   display: grid;
   grid-template-columns: auto auto auto;
@@ -127,6 +153,7 @@ a:hover {
   padding: 10px;
 }
 
+/*This is the style for the grid of the main page.*/
 .grid-container-main{
     display: grid;
     grid-template-columns: auto auto;
@@ -134,38 +161,52 @@ a:hover {
     padding: 10px;
 }
 
+/*This is the style for the grid item.*/
 .grid-item {
   font-size: 30px;
   text-align: center;
   color: white;
 } 
-    
+
+/*This is the style for the background image on the quotes page.*/  
 .quote-body{
     background-image: url('/images/books.jpg');
     background-size: cover;
+    background-attachment: fixed;
+    width: 100%;
+    height: 100%;
 }
 
+/*This is the style for the background of the family and bucket list pages.*/
 .main-body{
     background-color:skyblue;
 }
 
+/*This is the style for the background of the main page.*/
 .home-body {
     background-image: url('/images/boston.jpg');
     background-size: cover;
+    background-attachment: fixed;
+    width: 100%;
+    height: 100%;
 }
 
+/*This is the style for the family gallery images.*/
 .family-layout{
     display: flex; 
     flex-wrap: wrap;
     justify-content:left;
 }
 
+/*This is the style for some of the images on the family page.*/
 .family-layout img {
     margin: 10px;
     width: 475px;
     height: 390px; 
 }
 
+/*This ensures that there is no numbers or bullet points on the list on the
+family gallery page.*/
 .ul-no-bullet{
     list-style-type: none;
 }
