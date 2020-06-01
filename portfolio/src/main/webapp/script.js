@@ -42,3 +42,10 @@ function addNavBar(){
     let templateContent = document.importNode(template.content, true);
     document.body.prepend(templateContent);
 }
+
+function addHello(){
+    fetch('/data').then(response => response.text()).then(response =>
+    response.replace("<h1>", ' '). replace("</h1>", ' ')).then((greeting) =>
+    {document.getElementById('hello-container').innerText = greeting; 
+    });
+}
