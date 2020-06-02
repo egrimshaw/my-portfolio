@@ -49,9 +49,6 @@ function addHello(){
         const helloElement = document.getElementById('hello-container');
         helloElement.innerHTML = '';
         helloElement.appendChild(createHeading(arrayString[0]));
-        helloElement.appendChild(createList('First Comment: ' + arrayString[1]));
-        helloElement.appendChild(createList('Second Comment: ' + arrayString[2]));
-        helloElement.appendChild(createList('Third Comment: ' + arrayString[3]));
     });
     
 }
@@ -67,3 +64,34 @@ function createList(text){
     liElement.innerText = text;
     return liElement;
 }
+
+function addComments(){
+    fetch('/data').then(response => response.json()).then((arrayString) =>
+    {
+        const helloElement = document.getElementById('comment-container');
+        var olTag = document.createElement('ol');
+        helloElement.innerHTML = '';
+        var i; 
+        for (i =0; i< arrayString.length; i++){
+            olTag.appendChild(createList(arrayString[i]));
+        }
+        helloElement.appendChild(olTag);
+    });
+}
+
+function addCommentBox(){
+    fetch('/data').then(response => response.json()).then((arrayString) =>
+    {
+        const helloElement = document.getElementById('comment-container');
+        var olTag = document.createElement('ol');
+        helloElement.innerHTML = '';
+        var i; 
+        for (i =0; i< arrayString.length; i++){
+            olTag.appendChild(createList(arrayString[i]));
+        }
+        helloElement.appendChild(olTag);
+    });
+
+}
+
+

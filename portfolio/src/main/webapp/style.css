@@ -21,6 +21,17 @@ This is the CSS file containing all the styles used throughout the code.
   color:white;
 }
 
+/*This is the style for the comment output.*/
+#comment-container {
+  margin-top: 20px;
+  color: black;
+}
+
+#commentText{
+    color: black;
+    text-align: left;
+}
+
 /*This is the style for the profile picture on the main page.*/
 #profilePic{
     max-width: 300px;
@@ -98,11 +109,7 @@ specifications. */
     text-align: center;
 }
 
-/*This is the style for the profile pic and about me text on the main page*/
-#welcomeText{
-    color: white; 
-    text-align: left;
-}
+
 
 /*This is the style for the LinkedIn logo on the main page.*/
 #liImage{
@@ -123,6 +130,12 @@ specifications. */
     color: white;
     text-decoration: none;
 }
+
+/*This is the style for the profile pic and about me text on the main page*/
+.welcomeText{
+    color: white; 
+    text-align: left;
+} 
 
 /*This is the class for the nav bar.*/
 .nav {

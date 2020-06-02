@@ -1,0 +1,26 @@
+<!-- This is the HTML for the comment page. -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Comment Page</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+    <!-- using Google's CDN library for jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  </head>
+  <body class = "main-body" onload = "addComments()">
+        <div id = "nav"> </div>
+        <script> $(document).ready(function(){$("#nav").load("navbar.html")}); </script>
+        <form action = "/data" method = "POST">
+            <p id = "commentText"> Comment: </p>
+            <input type = "text" name = "viewer-comment">
+            <br/>
+            <p id = "commentText"> Name to be attached to comment (can be Annoymous): </p>
+            <input type = "text" name = "viewer-comment-name"> 
+            <br/> <br/>
+            <input type = "submit" />
+            </form>
+            <div id = "comment-container"> </div>
+  </body>
+</html>

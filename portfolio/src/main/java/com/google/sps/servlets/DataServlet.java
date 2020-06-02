@@ -27,17 +27,31 @@ import com.google.gson.Gson;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
+  private ArrayList<String> commentArray = new ArrayList<String>();
+
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
    // document.write("<html><h1>Hello Evie!</h1></html>");
-    ArrayList<String> commentArray = new ArrayList<String>();
-    commentArray.add("Hello Evie!");
-    commentArray.add("Hi! This is the first comment.");
-    commentArray.add("Second comment here.");
-    commentArray.add("They said only three comments needed.");
+    // ArrayList<String> commentArray = new ArrayList<String>();
+    // commentArray.add("Hello Evie!");
+    // commentArray.add("Hi! This is the first comment.");
+    // commentArray.add("Second comment here.");
+    // commentArray.add("They said only three comments needed.");
     Gson gson = new Gson();
     String jsonArray = gson.toJson(commentArray);
     response.setContentType("application/json; ");
     response.getWriter().println(jsonArray);
+  }
+
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    String comment = request.getParameter("viewer-comment");
+    String commentName = request.getParameter("viewer-comment-name");
+    commentArray.add(comment + " -" + commentName);
+    Gson gson = new Gson();
+    String jsonArray = gson.toJson(commentArray);
+    response.setContentType("application/json; ");
+
+    response.sendRedirect("/commentform.html");
+
   }
 }
