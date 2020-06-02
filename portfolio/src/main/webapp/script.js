@@ -42,3 +42,28 @@ function addNavBar(){
     let templateContent = document.importNode(template.content, true);
     document.body.prepend(templateContent);
 }
+
+function addHello(){
+    fetch('/data').then(response => response.json()).then((arrayString) =>
+    {
+        const helloElement = document.getElementById('hello-container');
+        helloElement.innerHTML = '';
+        helloElement.appendChild(createHeading(arrayString[0]));
+        helloElement.appendChild(createList('First Comment: ' + arrayString[1]));
+        helloElement.appendChild(createList('Second Comment: ' + arrayString[2]));
+        helloElement.appendChild(createList('Third Comment: ' + arrayString[3]));
+    });
+    
+}
+
+function createHeading(text){
+    const h1Element = document.createElement('p');
+    h1Element.innerText = text;
+    return h1Element; 
+}
+
+function createList(text){
+    const liElement = document.createElement('li');
+    liElement.innerText = text;
+    return liElement;
+}

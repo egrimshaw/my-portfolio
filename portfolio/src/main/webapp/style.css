@@ -15,6 +15,12 @@ This is the CSS file containing all the styles used throughout the code.
   color:white;
 }
 
+/*This is the style for the Hello Evie output.*/
+#hello-container {
+  margin-top: 20px;
+  color:white;
+}
+
 /*This is the style for the profile picture on the main page.*/
 #profilePic{
     max-width: 300px;
