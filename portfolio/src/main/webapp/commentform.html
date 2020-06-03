@@ -9,7 +9,7 @@
     <!-- using Google's CDN library for jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   </head>
-  <body class = "main-body" onload = "addComments()">
+  <body class = "main-body" onload = "loadComments()">
         <div id = "nav"> </div>
         <script> $(document).ready(function(){$("#nav").load("navbar.html")}); </script>
         <form action = "/data" method = "POST">
@@ -20,7 +20,7 @@
             <input type = "text" name = "viewer-comment-name"> 
             <br/> <br/>
             <input type = "submit" />
-            </form>
-            <div id = "comment-container"> </div>
+        </form>
+        <div id = "comment-container"> </div>
   </body>
 </html>

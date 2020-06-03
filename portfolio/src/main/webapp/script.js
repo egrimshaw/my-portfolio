@@ -43,16 +43,6 @@ function addNavBar(){
     document.body.prepend(templateContent);
 }
 
-function addHello(){
-    fetch('/data').then(response => response.json()).then((arrayString) =>
-    {
-        const helloElement = document.getElementById('hello-container');
-        helloElement.innerHTML = '';
-        helloElement.appendChild(createHeading(arrayString[0]));
-    });
-    
-}
-
 function createHeading(text){
     const h1Element = document.createElement('p');
     h1Element.innerText = text;
@@ -65,31 +55,17 @@ function createList(text){
     return liElement;
 }
 
-function addComments(){
-    fetch('/data').then(response => response.json()).then((arrayString) =>
+function loadComments(){
+    fetch('/load').then(response => response.json()).then((arrayString) =>
     {
-        const helloElement = document.getElementById('comment-container');
+        const commentElement = document.getElementById('comment-container');
         var olTag = document.createElement('ol');
-        helloElement.innerHTML = '';
+        commentElement.innerHTML = '';
         var i; 
         for (i =0; i< arrayString.length; i++){
             olTag.appendChild(createList(arrayString[i]));
         }
-        helloElement.appendChild(olTag);
-    });
-}
-
-function addCommentBox(){
-    fetch('/data').then(response => response.json()).then((arrayString) =>
-    {
-        const helloElement = document.getElementById('comment-container');
-        var olTag = document.createElement('ol');
-        helloElement.innerHTML = '';
-        var i; 
-        for (i =0; i< arrayString.length; i++){
-            olTag.appendChild(createList(arrayString[i]));
-        }
-        helloElement.appendChild(olTag);
+        commentElement.appendChild(olTag);
     });
 
 }
