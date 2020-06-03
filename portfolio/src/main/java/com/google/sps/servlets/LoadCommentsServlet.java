@@ -30,33 +30,27 @@ import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
 
 
-/** Servlet that returns some example content. TODO: modify this file to handle comments data */
-@WebServlet("/data")
-public class DataServlet extends HttpServlet {
+/** Servlet that loads some comments content. */
+@WebServlet("/load")
+public class LoadCommentsServlet extends HttpServlet {
 
   private List<String> commentArray = new ArrayList<String>();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Gson gson = new Gson();
-    String jsonArray = gson.toJson(commentArray);
-    response.setContentType("application/json; ");
-    response.getWriter().println(jsonArray);
-  }
-
-  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String comment = request.getParameter("viewer-comment");
-    String commentName = request.getParameter("viewer-comment-name");
-    String commentCombined = "\"" + comment + "\"" + " -" + commentName;
-
-    long timestamp = System.currentTimeMillis();
-    Entity commentEntity = new Entity("Comments");
-    commentEntity.setProperty("comment", commentCombined);
-    commentEntity.setProperty("time", timestamp);
+    Query query = new Query("Comments").addSort("time", SortDirection.DESCENDING); // most recent comments first
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    datastore.put(commentEntity);
+    PreparedQuery results = datastore.prepare(query);
 
-    response.sendRedirect("/commentform.html");
+    List<String> commentsArray = new ArrayList<>();
+    for (Entity entity : results.asIterable()) {
+      String title = (String) entity.getProperty("comment");
+      commentsArray.add(title);
+    }
+
+    Gson gson = new Gson();
+    response.setContentType("application/json;");
+    response.getWriter().println(gson.toJson(commentsArray));
 
   }
 }
