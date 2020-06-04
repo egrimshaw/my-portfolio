@@ -24,6 +24,8 @@ import com.google.gson.Gson;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.FetchOptions;
+import com.google.sps.data.Comment;
 import java.util.List;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
@@ -38,19 +40,32 @@ public class LoadCommentsServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    int numberComments = -1;
+    try{
+     numberComments = Integer.parseInt(request.getParameter("numComments"));
+    }
+    catch(NumberFormatException e){
+        numberComments=1;
+    }
+
     Query query = new Query("Comments").addSort("time", SortDirection.DESCENDING); // most recent comments first
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
-    List<String> commentsArray = new ArrayList<>();
-    for (Entity entity : results.asIterable()) {
+    List<Comment> commentsArray = new ArrayList<>();
+    for (Entity entity: results.asList(FetchOptions.Builder.withLimit(numberComments))) {
+      long id = entity.getKey().getId();
       String title = (String) entity.getProperty("comment");
-      commentsArray.add(title);
+      long timestamp = (long) entity.getProperty("time");
+      Comment commentToAdd = new Comment(id, title, timestamp);
+      commentsArray.add(commentToAdd);
+      
     }
 
     Gson gson = new Gson();
     response.setContentType("application/json;");
     response.getWriter().println(gson.toJson(commentsArray));
+
 
   }
 }
