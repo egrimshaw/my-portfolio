@@ -36,8 +36,6 @@ import com.google.appengine.api.datastore.Query.SortDirection;
 @WebServlet("/load")
 public class LoadCommentsServlet extends HttpServlet {
 
-  private List<String> commentArray = new ArrayList<String>();
-
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     int numberComments = -1;
