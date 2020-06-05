@@ -34,9 +34,9 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 
 
-/** Servlet that loads some comments content. */
-@WebServlet("/delete-data")
-public class DeleteData extends HttpServlet {
+/** Servlet that deletes all comments. */
+@WebServlet("/delete-data-all")
+public class DeleteDataAll extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -47,6 +47,7 @@ public class DeleteData extends HttpServlet {
     
     for (Entity entity: results.asIterable()) {
         datastore.delete(entity.getKey());
-  }
+    }
+
 }
 }

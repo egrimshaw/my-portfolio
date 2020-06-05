@@ -30,40 +30,20 @@ import java.util.List;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 
 
-/** Servlet that loads some comments content. */
-@WebServlet("/load")
-public class LoadCommentsServlet extends HttpServlet {
+/** Servlet that deletes one comment. */
+@WebServlet("/delete-data-individual")
+public class DeleteDataIndividual extends HttpServlet {
 
   @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    int numberComments = -1;
-    try{
-     numberComments = Integer.parseInt(request.getParameter("numComments"));
-    }
-    catch(NumberFormatException e){
-        numberComments = 1;
-    }
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    long id = Long.parseLong(request.getParameter("id"));
 
-    Query query = new Query("Comments").addSort("time", SortDirection.DESCENDING); // most recent comments first
+    Key commentEntityKey = KeyFactory.createKey("Comments", id);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    PreparedQuery results = datastore.prepare(query);
-
-    List<Comment> commentsArray = new ArrayList<>();
-    for (Entity entity: results.asList(FetchOptions.Builder.withLimit(numberComments))) {
-      long id = entity.getKey().getId();
-      String title = (String) entity.getProperty("comment");
-      String name = (String) entity.getProperty("commentName");
-      long timestamp = (long) entity.getProperty("time");
-      Comment commentToAdd = new Comment(id, title, name, timestamp);
-      commentsArray.add(commentToAdd);
-      
-    }
-
-    Gson gson = new Gson();
-    response.setContentType("application/json;");
-    response.getWriter().println(gson.toJson(commentsArray));
-
-  }
+    datastore.delete(commentEntityKey);
+}
 }

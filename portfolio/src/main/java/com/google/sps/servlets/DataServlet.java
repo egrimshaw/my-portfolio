@@ -30,7 +30,7 @@ import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
 
 
-/** Servlet that returns some example content. TODO: modify this file to handle comments data */
+/** Servlet that loads comments. */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
@@ -47,11 +47,9 @@ public class DataServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String comment = request.getParameter("viewer-comment");
     String commentName = request.getParameter("viewer-comment-name");
-    String commentCombined = null;
-
     long timestamp = System.currentTimeMillis();
     Entity commentEntity = new Entity("Comments");
-    if (comment!=null){ //only add comment to entity list if there is text in comment
+    if (comment!=null && !comment.equals("")){ //only add comment to entity list if there is text in comment
         commentEntity.setProperty("comment", comment);
         commentEntity.setProperty("commentName", commentName);
         commentEntity.setProperty("time", timestamp);
