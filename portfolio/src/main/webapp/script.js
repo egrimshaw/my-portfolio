@@ -43,10 +43,10 @@ function addNavBar(){
     document.body.prepend(templateContent);
 }
 
-function createHeading(text){
-    const h1Element = document.createElement('p');
-    h1Element.innerText = text;
-    return h1Element; 
+function createParagraph(text){
+    const pElement = document.createElement('p');
+    pElement.innerText = text;
+    return pElement; 
 }
 
 function createList(text){
@@ -55,19 +55,40 @@ function createList(text){
     return liElement;
 }
 
+/* This function is called upon clicking submit limit. It will set the limit for the max
+number of comments and save it in the session storage. */
 function loadComments(){
-    fetch('/load').then(response => response.json()).then((arrayString) =>
+    numberComments = document.getElementById('max').value; 
+    sessionStorage.setItem("limit",numberComments);
+
+}
+
+/*This function is called when refreshing the page. It fetches the comments up to the max amount
+determined by the max stored in session storage.*/
+function loadAllComments(){
+    const url = "/load?numComments="+sessionStorage.getItem("limit");
+    fetch(url).then(response => response.json()).then((arrayString) =>
     {
         const commentElement = document.getElementById('comment-container');
         var olTag = document.createElement('ol');
         commentElement.innerHTML = '';
         var i; 
         for (i =0; i< arrayString.length; i++){
-            olTag.appendChild(createList(arrayString[i]));
+            var commentCombined = "\"" + arrayString[i].comment + "\" -" + arrayString[i].commentName; 
+            olTag.appendChild(createList(commentCombined));
         }
+        
         commentElement.appendChild(olTag);
-    });
+       
+    })
 
 }
 
-
+//This function deletes all comments.
+function deleteComments(){
+  fetch('/delete-data', {method: 'POST'}).then(response =>
+    {
+        const commentElement = document.getElementById('comment-container');
+        commentElement.innerHTML = '';
+    });
+}

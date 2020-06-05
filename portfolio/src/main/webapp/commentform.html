@@ -9,18 +9,31 @@
     <!-- using Google's CDN library for jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   </head>
-  <body class = "main-body" onload = "loadComments()">
+  <body class = "main-body" onload = "loadAllComments()">
         <div id = "nav"> </div>
         <script> $(document).ready(function(){$("#nav").load("navbar.html")}); </script>
         <form action = "/data" method = "POST">
-            <p id = "commentText"> Comment: </p>
+            <p class = "commentText"> Enter a number between 0 and 20 for the number of comments 
+                you would like to be displayed: </p>
+            <input type = "number" name = "numComments" id = "max" min = "0" max = "20" value = "1" >
+            <br>
+            <br>
+            <button onclick="loadComments()">Submit Limit</button>
+        </form>
+        <form action = "/data" method = "POST">
+            <p class = "commentText"> Comment: </p>
             <input type = "text" name = "viewer-comment">
-            <br/>
-            <p id = "commentText"> Name to be attached to comment (can be Annoymous): </p>
+            <br>
+            <p class = "commentText"> Name to be attached to comment (can be Annoymous): </p>
             <input type = "text" name = "viewer-comment-name"> 
-            <br/> <br/>
-            <input type = "submit" />
+            <br> 
+            <br>
+            <button onclick="loadAllComments()">Submit Comment</button>
         </form>
         <div id = "comment-container"> </div>
+        <br>
+        <br>
+        <button onclick="deleteComments()">Delete All Comments On Record</button>
+
   </body>
 </html>
