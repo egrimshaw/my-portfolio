@@ -56,8 +56,9 @@ public class LoadCommentsServlet extends HttpServlet {
     for (Entity entity: results.asList(FetchOptions.Builder.withLimit(numberComments))) {
       long id = entity.getKey().getId();
       String title = (String) entity.getProperty("comment");
+      String name = (String) entity.getProperty("commentName");
       long timestamp = (long) entity.getProperty("time");
-      Comment commentToAdd = new Comment(id, title, timestamp);
+      Comment commentToAdd = new Comment(id, title, name, timestamp);
       commentsArray.add(commentToAdd);
       
     }
@@ -65,7 +66,6 @@ public class LoadCommentsServlet extends HttpServlet {
     Gson gson = new Gson();
     response.setContentType("application/json;");
     response.getWriter().println(gson.toJson(commentsArray));
-
 
   }
 }

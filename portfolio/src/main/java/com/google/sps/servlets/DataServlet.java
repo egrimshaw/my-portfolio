@@ -48,17 +48,12 @@ public class DataServlet extends HttpServlet {
     String comment = request.getParameter("viewer-comment");
     String commentName = request.getParameter("viewer-comment-name");
     String commentCombined = null;
-    if (comment!=null){ //don't create a comment unless there is text in the comment box
-        if (commentName==null){
-            commentName = "Annoymous";
-        }
-     commentCombined = "\"" + comment + "\"" + " -" + commentName;
-    }
 
     long timestamp = System.currentTimeMillis();
     Entity commentEntity = new Entity("Comments");
-    if (commentCombined!=null){ //only add comment to entity list if there is text in comment
-        commentEntity.setProperty("comment", commentCombined);
+    if (comment!=null){ //only add comment to entity list if there is text in comment
+        commentEntity.setProperty("comment", comment);
+        commentEntity.setProperty("commentName", commentName);
         commentEntity.setProperty("time", timestamp);
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         datastore.put(commentEntity);

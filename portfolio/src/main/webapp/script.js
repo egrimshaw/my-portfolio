@@ -74,23 +74,21 @@ function loadAllComments(){
         commentElement.innerHTML = '';
         var i; 
         for (i =0; i< arrayString.length; i++){
-            olTag.appendChild(createList(arrayString[i].comment));
+            var commentCombined = "\"" + arrayString[i].comment + "\" -" + arrayString[i].commentName; 
+            olTag.appendChild(createList(commentCombined));
         }
         
         commentElement.appendChild(olTag);
        
-    });
+    })
 
 }
 
 //This function deletes all comments.
-async function deleteComments(){
-  await fetch('/delete-data', {method: 'POST'});
-  fetch('/load').then(response => response.json()).then((arrayString) =>
+function deleteComments(){
+  fetch('/delete-data', {method: 'POST'}).then(response =>
     {
         const commentElement = document.getElementById('comment-container');
         commentElement.innerHTML = '';
-    });}
-
-
-
+    });
+}

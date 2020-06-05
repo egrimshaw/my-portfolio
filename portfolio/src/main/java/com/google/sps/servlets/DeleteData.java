@@ -38,8 +38,6 @@ import com.google.appengine.api.datastore.KeyFactory;
 @WebServlet("/delete-data")
 public class DeleteData extends HttpServlet {
 
-  private List<String> commentArray = new ArrayList<String>();
-
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     Query query = new Query("Comments").addSort("time", SortDirection.DESCENDING); // most recent comments first
