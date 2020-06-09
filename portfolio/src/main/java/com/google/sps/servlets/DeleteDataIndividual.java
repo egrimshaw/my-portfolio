@@ -39,7 +39,6 @@ public class DeleteDataIndividual extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     long id = Long.parseLong(request.getParameter("id"));
-
     Key commentEntityKey = KeyFactory.createKey("Comments", id);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.delete(commentEntityKey);

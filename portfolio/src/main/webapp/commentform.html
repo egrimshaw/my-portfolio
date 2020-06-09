@@ -9,6 +9,7 @@
     <!-- using Google's CDN library for jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   </head>
+<<<<<<< HEAD
   <body class="main-body" onload="loadAllComments()">
     <div id="nav"></div>
     <script>
@@ -16,7 +17,7 @@
         $("#nav").load("navbar.html")
       })
     </script>
-    <form action="/data" method="POST">
+    <form action = "/data" method = "POST" id = "limitCommentForm">
       <p class="commentText">
         Enter a number between 0 and 20 for the number of comments you would like to be displayed:
       </p>
@@ -25,7 +26,7 @@
       <br />
       <button type = "button" onclick="loadComments()">Submit Limit</button>
     </form>
-    <form action="/data" method="POST">
+    <form action = "/data" method = "POST" style = "display:none" id = "commentForm">
       <p class="commentText">Comment:</p>
       <input type="text" name="viewer-comment" />
       <br />
@@ -39,5 +40,6 @@
     <br />
     <br />
     <button onclick="deleteAllComments()">Delete All Comments On Record</button>
+    <div id = "login-container"> </div>
   </body>
 </html>

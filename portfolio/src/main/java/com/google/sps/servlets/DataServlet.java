@@ -14,12 +14,24 @@
 
 package com.google.sps.servlets;
 
+<<<<<<< HEAD
+=======
+import java.io.IOException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.Iterator;
+import com.google.gson.Gson;
+>>>>>>> Add authentication library work to comment form.
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+<<<<<<< HEAD
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,11 +40,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+=======
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
+import com.google.appengine.api.datastore.FetchOptions;
 
-/** Servlet that loads comments. */
+>>>>>>> Add authentication library work to comment form.
+
+
+/** Servlet that loads and saves comments. */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
   private List<String> commentArray = new ArrayList<String>();
+  private UserService userService = UserServiceFactory.getUserService();
+  private DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -44,17 +65,27 @@ public class DataServlet extends HttpServlet {
 
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String comment = request.getParameter("viewer-comment");
-    String commentName = request.getParameter("viewer-comment-name");
     long timestamp = System.currentTimeMillis();
+    String name = null; 
+
+    if (userService.getCurrentUser()!=null){ //if someone is logged in 
+        Query query =
+            new Query("Comments")
+                .setFilter(new Query.FilterPredicate("id", Query.FilterOperator.EQUAL, userService.getCurrentUser().getUserId()));
+        PreparedQuery results = datastore.prepare(query);
+        Iterator<Entity> resultsList = results.asIterator();
+        Entity entity = resultsList.next();
+        name = (String) entity.getProperty("commentName"); //get their name assigned to logged in user
+    }
+
     Entity commentEntity = new Entity("Comments");
+    
     if (comment != null
         && !comment.equals("")) { // only add comment to entity list if there is text in comment
       commentEntity.setProperty("comment", comment);
       commentEntity.setProperty("commentName", commentName);
       commentEntity.setProperty("time", timestamp);
-      DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
       datastore.put(commentEntity);
-    }
 
     response.sendRedirect("/commentform.html");
   }

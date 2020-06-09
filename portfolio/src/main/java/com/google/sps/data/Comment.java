@@ -12,5 +12,5 @@ public final class Comment {
     this.comment = commentAdd;
     this.commentName = commentNameAdd;
     this.time = timestamp;
-  }
+    }
 }
