@@ -43,12 +43,6 @@ function addNavBar(){
     document.body.prepend(templateContent);
 }
 
-function createParagraph(text){
-    const pElement = document.createElement('p');
-    pElement.innerText = text;
-    return pElement; 
-}
-
 function createList(text){
     const liElement = document.createElement('li');
     liElement.innerText = text;
@@ -71,24 +65,48 @@ function loadAllComments(){
     {
         const commentElement = document.getElementById('comment-container');
         var olTag = document.createElement('ol');
-        commentElement.innerHTML = '';
-        var i; 
-        for (i =0; i< arrayString.length; i++){
+        var i;
+        for (i = 0; i<arrayString.length; i++){
+            const oneComment = document.createElement('li');
+            oneComment.className = 'comment';
+
+            const titleElement = document.createElement('span');
             var commentCombined = "\"" + arrayString[i].comment + "\" -" + arrayString[i].commentName; 
-            olTag.appendChild(createList(commentCombined));
-        }
-        
-        commentElement.appendChild(olTag);
+            titleElement.innerText = commentCombined;
+
+            const deleteButtonElement = document.createElement('button');
+            deleteButtonElement.setAttribute('style', "margin: 10px");
+            deleteButtonElement.innerText = 'Delete Comment';
+            var commentToDelete = arrayString[i];
+            deleteButtonElement.addEventListener('click', () => {
+
+                deleteOneComment(commentToDelete);
+
+                oneComment.remove();
+            });
+
+        oneComment.appendChild(titleElement);
+        oneComment.appendChild(deleteButtonElement);
+        olTag.appendChild(oneComment);
+    }
+    commentElement.appendChild(olTag);
        
     })
 
 }
 
 //This function deletes all comments.
-function deleteComments(){
-  fetch('/delete-data', {method: 'POST'}).then(response =>
+function deleteAllComments(){
+  fetch('/delete-data-all', {method: 'POST'}).then(response =>
     {
         const commentElement = document.getElementById('comment-container');
         commentElement.innerHTML = '';
     });
+}
+
+//This function deletes one comment. 
+function deleteOneComment(commentToDelete){
+  const params = new URLSearchParams();
+  params.append('id', commentToDelete.id);
+  fetch('/delete-data-indvidiual', {method: 'POST', body: params});
 }
