@@ -1,25 +1,28 @@
-<!-- This is the HTML for the quote page -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Favorite Quotes</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
     <script src="script.js"></script>
     <!-- Using Google's CDN library for jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   </head>
-  <body class = "quote-body">
+  <body class="quote-body">
     <!-- add in nav bar at top of page from template -->
-    <div id = "nav"> </div>
-    <script> $(document).ready(function(){$("#nav").load("navbar.html")}); </script>
-    <div id = "content">
-        <!-- list of quotes positioned with css -->
-        <h1><i>Favorite Quotes</i></h1>
-        <p id = "quoteTopLeft"><q>True love lasts a lifetime.</q> -Love Actually</p>
-        <p id = "quoteMidLeft"><q>Happiness depends on ourselves.</q> -Aristotle</p>
-        <p id = "quoteMid"><q>You don't love because: you love despite.</q> -William Faulkner</p>
-        <p id = "quoteBottom"><q>Don't fear moving slowly forward, fear standing still.</q> -Kathleen Harris</p>
+    <div id="nav"></div>
+    <script>
+      $(document).ready(function () {
+        $("#nav").load("navbar.html")
+      })
+    </script>
+    <div id="content">
+      <!-- list of quotes positioned with css -->
+      <h1><i>Favorite Quotes</i></h1>
+      <p id="quoteTopLeft"><q>True love lasts a lifetime.</q> -Love Actually</p>
+      <p id="quoteMidLeft"><q>Happiness depends on ourselves.</q> -Aristotle</p>
+      <p id="quoteMid"><q>You don't love because: you love despite.</q> -William Faulkner</p>
+      <p id="quoteBottom"><q>Don't fear moving slowly forward, fear standing still.</q> -Kathleen Harris</p>
     </div>
-</body>
+  </body>
 </html>

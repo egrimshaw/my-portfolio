@@ -14,26 +14,24 @@
 
 package com.google.sps.servlets;
 
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.gson.Gson;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import com.google.gson.Gson;
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.google.appengine.api.datastore.Entity;
-import java.util.List;
-import com.google.appengine.api.datastore.PreparedQuery;
-import com.google.appengine.api.datastore.Query;
-import com.google.appengine.api.datastore.Query.SortDirection;
-
 
 /** Servlet that loads comments. */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-
   private List<String> commentArray = new ArrayList<String>();
 
   @Override
@@ -49,15 +47,15 @@ public class DataServlet extends HttpServlet {
     String commentName = request.getParameter("viewer-comment-name");
     long timestamp = System.currentTimeMillis();
     Entity commentEntity = new Entity("Comments");
-    if (comment!=null && !comment.equals("")){ //only add comment to entity list if there is text in comment
-        commentEntity.setProperty("comment", comment);
-        commentEntity.setProperty("commentName", commentName);
-        commentEntity.setProperty("time", timestamp);
-        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-        datastore.put(commentEntity);
+    if (comment != null
+        && !comment.equals("")) { // only add comment to entity list if there is text in comment
+      commentEntity.setProperty("comment", comment);
+      commentEntity.setProperty("commentName", commentName);
+      commentEntity.setProperty("time", timestamp);
+      DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+      datastore.put(commentEntity);
     }
 
     response.sendRedirect("/commentform.html");
-
   }
 }
