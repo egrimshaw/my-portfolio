@@ -1,40 +1,53 @@
-<!-- This is the HTML for the main page. -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Evie's Portfolio</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
     <script src="script.js"></script>
     <!-- using Google's CDN library for jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   </head>
-  <body class = "home-body">
-      <!-- load in nav bar from template -->
-      <div id = "nav"> </div>
-      <script> $(document).ready(function(){$("#nav").load("navbar.html")}); </script>
-      <div id = "content">
-      <h1  id = "welcomeMessage">Welcome to Evie's Portfolio!</h1>
-      <div class = "grid-container-main">
-      <!-- grid for welcome picture and about me text -->
-      <p class = "welcomeText"><img id = "profilePic" src = "/images/ProfileImage.jpg" alt = "Evie's profile picture"></p>
-      <p class = "welcomeText"> Hi! My name is Evie Grimshaw. I was born in London, but moved to Boston when my mom remarried. 
-          I have six siblings (I am the fifth child), so it is always a bit crazy in our house. 
-          Currently, I am a rising junior at Brown University and studying
-          Computer Science and Economics. Outside of classes, I am the chair of the on-campus
-          business education committee for Women in Business, and I love to exercise. I am beyond
-          excited to work on the ASA team and at Google this summer (even if we are remote)!
+  <body class="home-body">
+    <!-- load in nav bar from template -->
+    <div id="nav"></div>
+    <script>
+      $(document).ready(function () {
+        $("#nav").load("navbar.html")
+      })
+    </script>
+    <div id="content">
+      <h1 id="welcomeMessage">Welcome to Evie's Portfolio!</h1>
+      <div class="grid-container-main">
+        <!-- grid for welcome picture and about me text -->
+        <p class="welcomeText"><img id="profilePic" src="/images/ProfileImage.jpg" alt="Evie's profile picture" /></p>
+        <p class="welcomeText">
+          Hi! My name is Evie Grimshaw. I was born in London, but moved to Boston when my mom remarried. I have six
+          siblings (I am the fifth child), so it is always a bit crazy in our house. Currently, I am a rising junior at
+          Brown University and studying Computer Science and Economics. Outside of classes, I am the chair of the
+          on-campus business education committee for Women in Business, and I love to exercise. I am beyond excited to
+          work on the ASA team and at Google this summer (even if we are remote)!
+        </p>
       </div>
+
       <!-- fun fact generator button -->
-      <p class = "welcomeText">Click here to read a random fact about me:</p>
-      <button onclick="addRandomFact()">Fun Fact!</button>
+      <p class="welcomeText">Click here to read a random fact about me:</p>
+      <button type="button" onclick="addRandomFact()">Fun Fact!</button>
       <div id="fact-container"></div>
       <!-- grid for links to LinkedIn, Github, and resume at bottom of page -->
-      <div class = "grid-container-bottom">
-          <div class = "grid-item"><a href = "https://www.linkedin.com/in/evangeline-grimshaw-024269169"><img id = "liImage" src = "/images/LI-In-Bug.png" alt = "LinkedIn"></a></div>
-          <div class = "grid-item"><a href = "https://github.com/egrimshaw"><img id = "githubImage" src = "/images/GitHub_Logo_White.png" alt = "Github"></a></div>
-          <div class = "grid-item"><a id = "resume" href = "/images/Resume.pdf">Resume</a>
+      <div class="grid-container-bottom">
+        <div class="grid-item">
+          <a href="https://www.linkedin.com/in/evangeline-grimshaw-024269169"
+            ><img id="liImage" src="/images/LI-In-Bug.png" alt="LinkedIn"
+          /></a>
+        </div>
+        <div class="grid-item">
+          <a href="https://github.com/egrimshaw"
+            ><img id="githubImage" src="/images/GitHub_Logo_White.png" alt="Github"
+          /></a>
+        </div>
+        <div class="grid-item"><a id="resume" href="/images/Resume.pdf">Resume</a></div>
       </div>
     </div>
-</body>
+  </body>
 </html>

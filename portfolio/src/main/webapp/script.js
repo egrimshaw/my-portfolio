@@ -16,96 +16,94 @@
  * Adds a random fact to the page.
  */
 function addRandomFact() {
-  const facts =
-      ['I have four baby teeth I cannot lose.', 'My favorite breakfast is oatmeal.', 'I am scared of heights.',
-       'I am learning to bake.', 'I have watched Greys Anatomy all the way through at least five times.', 
-       'I love dark chocolate.'];
+  const facts = [
+    'I have four baby teeth I cannot lose.',
+    'My favorite breakfast is oatmeal.', 'I am scared of heights.',
+    'I am learning to bake.',
+    'I have watched Greys Anatomy all the way through at least five times.',
+    'I love dark chocolate.'
+  ];
 
   // Pick a random fact.
   var fact = facts[Math.floor(Math.random() * facts.length)];
 
-  // Ensure that the same fact isn't repeated. 
+  // Ensure that the same fact isn't repeated.
   const factContainer = document.getElementById('fact-container');
-  while (factContainer.innerHTML === fact){
+  while (factContainer.innerHTML === fact) {
     fact = facts[Math.floor(Math.random() * facts.length)];
   }
- 
-  //Add to page.
+
+  // Add to page.
   factContainer.innerText = fact;
 }
 
-//Add nav bar to each page
-function addNavBar(){
-    //Get the template from the HTML file.
-    let template = document.getElementById('nav-bar');
-    //Add to top of page. 
-    let templateContent = document.importNode(template.content, true);
-    document.body.prepend(templateContent);
+// Add nav bar to each page
+function addNavBar() {
+  // Get the template from the HTML file.
+  let template = document.getElementById('nav-bar');
+  // Add to top of page.
+  let templateContent = document.importNode(template.content, true);
+  document.body.prepend(templateContent);
 }
 
-function createList(text){
-    const liElement = document.createElement('li');
-    liElement.innerText = text;
-    return liElement;
+function createList(text) {
+  const liElement = document.createElement('li');
+  liElement.innerText = text;
+  return liElement;
 }
 
-/* This function is called upon clicking submit limit. It will set the limit for the max
-number of comments and save it in the session storage. */
-function loadComments(){
-    numberComments = document.getElementById('max').value; 
-    sessionStorage.setItem("limit",numberComments);
-
+/* This function is called upon clicking submit limit. It will set the limit for
+the max number of comments and save it in the session storage. */
+function loadComments() {
+  numberComments = document.getElementById('max').value;
+  sessionStorage.setItem('limit', numberComments);
 }
 
-/*This function is called when refreshing the page. It fetches the comments up to the max amount
-determined by the max stored in session storage.*/
-function loadAllComments(){
-    const url = "/load?numComments="+sessionStorage.getItem("limit");
-    fetch(url).then(response => response.json()).then((arrayString) =>
-    {
-        const commentElement = document.getElementById('comment-container');
-        var olTag = document.createElement('ol');
-        var i;
-        for (i = 0; i<arrayString.length; i++){
-            const oneComment = document.createElement('li');
-            oneComment.className = 'comment';
+/*This function is called when refreshing the page. It fetches the comments up
+to the max amount determined by the max stored in session storage.*/
+function loadAllComments() {
+  const url = '/load?numComments=' + sessionStorage.getItem('limit');
+  fetch(url).then(response => response.json()).then((arrayString) => {
+    const commentElement = document.getElementById('comment-container');
+    var olTag = document.createElement('ol');
+    var i;
+    for (i = 0; i < arrayString.length; i++) {
+      const oneComment = document.createElement('li');
+      oneComment.className = 'comment';
 
-            const titleElement = document.createElement('span');
-            var commentCombined = "\"" + arrayString[i].comment + "\" -" + arrayString[i].commentName; 
-            titleElement.innerText = commentCombined;
+      const titleElement = document.createElement('span');
+      var commentCombined =
+          '"' + arrayString[i].comment + '" -' + arrayString[i].commentName;
+      titleElement.innerText = commentCombined;
 
-            const deleteButtonElement = document.createElement('button');
-            deleteButtonElement.setAttribute('style', "margin: 10px");
-            deleteButtonElement.innerText = 'Delete Comment';
-            var commentToDelete = arrayString[i];
-            deleteButtonElement.addEventListener('click', () => {
+      const deleteButtonElement = document.createElement('button');
+      deleteButtonElement.setAttribute('style', 'margin: 10px');
+      deleteButtonElement.innerText = 'Delete Comment';
+      var commentToDelete = arrayString[i];
+      deleteButtonElement.addEventListener('click', () => {
+        deleteOneComment(commentToDelete);
 
-                deleteOneComment(commentToDelete);
+        oneComment.remove();
+      });
 
-                oneComment.remove();
-            });
-
-        oneComment.appendChild(titleElement);
-        oneComment.appendChild(deleteButtonElement);
-        olTag.appendChild(oneComment);
+      oneComment.appendChild(titleElement);
+      oneComment.appendChild(deleteButtonElement);
+      olTag.appendChild(oneComment);
     }
     commentElement.appendChild(olTag);
-       
-    })
-
+  })
 }
 
-//This function deletes all comments.
-function deleteAllComments(){
-  fetch('/delete-data-all', {method: 'POST'}).then(response =>
-    {
-        const commentElement = document.getElementById('comment-container');
-        commentElement.innerHTML = '';
-    });
+// This function deletes all comments.
+function deleteAllComments() {
+  fetch('/delete-data-all', {method: 'POST'}).then(response => {
+    const commentElement = document.getElementById('comment-container');
+    commentElement.innerHTML = '';
+  });
 }
 
-//This function deletes one comment. 
-function deleteOneComment(commentToDelete){
+// This function deletes one comment.
+function deleteOneComment(commentToDelete) {
   const params = new URLSearchParams();
   params.append('id', commentToDelete.id);
   fetch('/delete-data-indvidiual', {method: 'POST', body: params});

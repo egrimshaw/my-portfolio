@@ -14,56 +14,52 @@
 
 package com.google.sps.servlets;
 
-import java.io.IOException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import com.google.gson.Gson;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.FetchOptions;
-import com.google.sps.data.Comment;
-import java.util.List;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
-
+import com.google.gson.Gson;
+import com.google.sps.data.Comment;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /** Servlet that loads some comments content. */
 @WebServlet("/load")
 public class LoadCommentsServlet extends HttpServlet {
-
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     int numberComments = -1;
-    try{
-     numberComments = Integer.parseInt(request.getParameter("numComments"));
-    }
-    catch(NumberFormatException e){
-        numberComments = 1;
+    try {
+      numberComments = Integer.parseInt(request.getParameter("numComments"));
+    } catch (NumberFormatException e) {
+      numberComments = 1;
     }
 
-    Query query = new Query("Comments").addSort("time", SortDirection.DESCENDING); // most recent comments first
+    Query query = new Query("Comments")
+                      .addSort("time", SortDirection.DESCENDING); // most recent comments first
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
     List<Comment> commentsArray = new ArrayList<>();
-    for (Entity entity: results.asList(FetchOptions.Builder.withLimit(numberComments))) {
+    for (Entity entity : results.asList(FetchOptions.Builder.withLimit(numberComments))) {
       long id = entity.getKey().getId();
       String title = (String) entity.getProperty("comment");
       String name = (String) entity.getProperty("commentName");
       long timestamp = (long) entity.getProperty("time");
       Comment commentToAdd = new Comment(id, title, name, timestamp);
       commentsArray.add(commentToAdd);
-      
     }
 
     Gson gson = new Gson();
     response.setContentType("application/json;");
     response.getWriter().println(gson.toJson(commentsArray));
-
   }
 }
