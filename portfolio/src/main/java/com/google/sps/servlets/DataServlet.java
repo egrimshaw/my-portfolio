@@ -14,8 +14,6 @@
 
 package com.google.sps.servlets;
 
-<<<<<<< HEAD
-=======
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,14 +22,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Iterator;
 import com.google.gson.Gson;
->>>>>>> Add authentication library work to comment form.
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
-<<<<<<< HEAD
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -40,12 +36,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-=======
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.appengine.api.datastore.FetchOptions;
-
->>>>>>> Add authentication library work to comment form.
 
 
 /** Servlet that loads and saves comments. */
@@ -68,10 +61,11 @@ public class DataServlet extends HttpServlet {
     long timestamp = System.currentTimeMillis();
     String name = null; 
 
-    if (userService.getCurrentUser()!=null){ //if someone is logged in 
+    if (userService.getCurrentUser() != null){ //if someone is logged in 
         Query query =
             new Query("Comments")
-                .setFilter(new Query.FilterPredicate("id", Query.FilterOperator.EQUAL, userService.getCurrentUser().getUserId()));
+                .setFilter(new Query.FilterPredicate("id", 
+                Query.FilterOperator.EQUAL, userService.getCurrentUser().getUserId()));
         PreparedQuery results = datastore.prepare(query);
         Iterator<Entity> resultsList = results.asIterator();
         Entity entity = resultsList.next();
@@ -79,6 +73,7 @@ public class DataServlet extends HttpServlet {
     }
 
     Entity commentEntity = new Entity("Comments");
+<<<<<<< HEAD
     
     if (comment != null
         && !comment.equals("")) { // only add comment to entity list if there is text in comment
@@ -86,6 +81,14 @@ public class DataServlet extends HttpServlet {
       commentEntity.setProperty("commentName", commentName);
       commentEntity.setProperty("time", timestamp);
       datastore.put(commentEntity);
+=======
+    if (comment != null && !comment.equals("")){ //only add comment to entity list if there is text in comment
+        commentEntity.setProperty("comment", comment);
+        commentEntity.setProperty("commentName", name);
+        commentEntity.setProperty("time", timestamp);
+        datastore.put(commentEntity);
+    }
+>>>>>>> Address format issues.
 
     response.sendRedirect("/commentform.html");
   }

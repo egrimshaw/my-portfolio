@@ -49,12 +49,14 @@ public class LoginPageServlet extends HttpServlet {
       String urlToRedirectToAfterUserLogsOut = "/commentform.html";
       String logoutUrl = userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
 
-      response.getWriter().println("<p>You have logged out. Click <a href=\"" + logoutUrl + "\">here</a> to return to comment form.</p>");
+      response.getWriter().println("<p>You have logged out." +
+        "Click <a href=\"" + logoutUrl + "\">here</a> to return to comment form.</p>");
     } else {
       String urlToRedirectToAfterUserLogsIn = "/createName.html";
       String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
 
-      response.getWriter().println("<p>You are not logged in. Click <a href=\"" + loginUrl + "\">here</a> to log in.</a></p>");
+      response.getWriter().println("<p>You are not logged in." +
+       "Click <a href=\"" + loginUrl + "\">here</a> to log in.</a></p>");
     }
 
 
