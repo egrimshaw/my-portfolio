@@ -28,22 +28,20 @@ import com.google.sps.data.Comment;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Iterator; 
 
 /** Servlet that creates votes. */
 @WebServlet("/chocolateData")
 public class ChocolateDataServlet extends HttpServlet {
-
   private Map<String, Long> chocolateVotes = new HashMap<>();
   private DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -59,30 +57,31 @@ public class ChocolateDataServlet extends HttpServlet {
     long timestamp = System.currentTimeMillis();
     long currentVotes = 0;
 
-    Query query = new Query("Chocolate").setFilter(new Query.FilterPredicate("chocolateType", Query.FilterOperator.EQUAL, chocolate));
-    query.addSort("time", SortDirection.DESCENDING);
+    Query query = new Query("Chocolate")
+                      .setFilter(new Query.FilterPredicate(
+                          "chocolateType", Query.FilterOperator.EQUAL, chocolate));
+    query.addSort("time", SortDirection.DESCENDING); // get most recent vote count
     PreparedQuery results = datastore.prepare(query);
     Iterator<Entity> resultsList = results.asIterator();
-    Entity entity = null; 
-    if (resultsList.hasNext()){
-        entity = resultsList.next();
+    Entity entity = null;
+    if (resultsList.hasNext()) {
+      entity = resultsList.next();
     }
-    if (entity == null){
-        currentVotes = 0; 
-    }
-    else {
-        currentVotes = (long) entity.getProperty("vote");
+    if (entity == null) {
+      currentVotes = 0;
+    } else {
+      currentVotes = (long) entity.getProperty("vote");
     }
 
-    chocolateVotes.put(chocolate, currentVotes+1);
+    chocolateVotes.put(chocolate, currentVotes + 1);
 
     Entity chocolateEntity = new Entity("Chocolate");
     chocolateEntity.setProperty("chocolateType", chocolate);
-    chocolateEntity.setProperty("vote", currentVotes+1);
+    chocolateEntity.setProperty("vote", currentVotes + 1);
     chocolateEntity.setProperty("time", timestamp);
 
     datastore.put(chocolateEntity);
-    
+
     response.sendRedirect("/chart.html");
   }
 }

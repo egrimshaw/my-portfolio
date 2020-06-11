@@ -59,9 +59,9 @@ public class DataServlet extends HttpServlet {
                             userService.getCurrentUser().getUserId()));
       PreparedQuery results = datastore.prepare(query);
       Iterator<Entity> resultsList = results.asIterator();
-      if (resultsList.hasNext()){
+      if (resultsList.hasNext()) {
         Entity entity = resultsList.next();
-        name = (String) entity.getProperty("commentName"); //get user name
+        name = (String) entity.getProperty("commentName"); // get user name
       }
     }
 
