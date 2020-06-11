@@ -144,3 +144,42 @@ function deleteOneComment(commentToDelete) {
   params.append('id', commentToDelete.id);
   fetch('/delete-data-individual', {method: 'POST', body: params});
 }
+
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+    fetch('/chocolateData').then(response => response.json()).then((chocolateVotes) => {
+        const data = new google.visualization.DataTable();
+        data.addColumn('string', 'Chocolate');
+        data.addColumn('number', 'Votes');
+        Object.keys(chocolateVotes).forEach((chocolate) => {
+            data.addRow([chocolate, chocolateVotes[chocolate]]);
+        });
+
+        const options = {
+            'title': 'Favorite Kind of Chocolate', 
+            'width': 600,
+            'height': 500,
+        };
+
+        const chart = new google.visualization.ColumnChart(document.getElementById('chart-container'));
+        chart.draw(data,options);
+    });
+
+}
+
+function deleteAllChocolate(){
+    fetch('/delete-data-chocolate', {method: 'POST'}).then(response => {
+        const data = new google.visualization.DataTable();
+        data.addColumn('string', 'Chocolate');
+        data.addColumn('number', 'Votes');
+        const options = {
+            'title': 'Favorite Kind of Chocolate', 
+            'width': 600,
+            'height': 500,
+        };
+        const chart = new google.visualization.ColumnChart(document.getElementById('chart-container'));
+        chart.draw(data,options);
+  });
+}
