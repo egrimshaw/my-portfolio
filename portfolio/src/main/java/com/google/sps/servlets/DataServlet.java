@@ -14,32 +14,24 @@
 
 package com.google.sps.servlets;
 
-import java.io.IOException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.Iterator;
-import com.google.gson.Gson;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.google.appengine.api.users.UserService;
-import com.google.appengine.api.users.UserServiceFactory;
-import com.google.appengine.api.datastore.FetchOptions;
-
 
 /** Servlet that loads and saves comments. */
 @WebServlet("/data")
@@ -59,37 +51,29 @@ public class DataServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String comment = request.getParameter("viewer-comment");
     long timestamp = System.currentTimeMillis();
-    String name = null; 
+    String name = null;
 
-    if (userService.getCurrentUser() != null){ //if someone is logged in 
-        Query query =
-            new Query("Comments")
-                .setFilter(new Query.FilterPredicate("id", 
-                Query.FilterOperator.EQUAL, userService.getCurrentUser().getUserId()));
-        PreparedQuery results = datastore.prepare(query);
-        Iterator<Entity> resultsList = results.asIterator();
+    if (userService.getCurrentUser() != null) { // if someone is logged in
+      Query query = new Query("Comments")
+                        .setFilter(new Query.FilterPredicate("id", Query.FilterOperator.EQUAL,
+                            userService.getCurrentUser().getUserId()));
+      PreparedQuery results = datastore.prepare(query);
+      Iterator<Entity> resultsList = results.asIterator();
+      if (resultsList.hasNext()){
         Entity entity = resultsList.next();
-        name = (String) entity.getProperty("commentName"); //get their name assigned to logged in user
+        name = (String) entity.getProperty("commentName"); //get user name
+      }
     }
 
     Entity commentEntity = new Entity("Comments");
-<<<<<<< HEAD
-    
+
     if (comment != null
         && !comment.equals("")) { // only add comment to entity list if there is text in comment
       commentEntity.setProperty("comment", comment);
-      commentEntity.setProperty("commentName", commentName);
+      commentEntity.setProperty("commentName", name);
       commentEntity.setProperty("time", timestamp);
       datastore.put(commentEntity);
-=======
-    if (comment != null && !comment.equals("")){ //only add comment to entity list if there is text in comment
-        commentEntity.setProperty("comment", comment);
-        commentEntity.setProperty("commentName", name);
-        commentEntity.setProperty("time", timestamp);
-        datastore.put(commentEntity);
     }
->>>>>>> Address format issues.
-
     response.sendRedirect("/commentform.html");
   }
 }

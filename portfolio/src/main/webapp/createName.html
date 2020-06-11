@@ -2,21 +2,25 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Comment Page</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
     <script src="script.js"></script>
     <!-- using Google's CDN library for jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   </head>
-  <body class = "main-body">
-        <div id = "nav"> </div>
-        <script> $(document).ready(function(){$("#nav").load("navbar.html")}); </script>
-        <p> Set your nickname here </p>
-        <form action = "/createName" method = "POST">
-            <input name = "userName">
-            <br>
-            <button onclick = "loadAllComments()"> Submit </button>
-        </form>
+  <body class="main-body">
+    <div id="nav"></div>
+    <script>
+      $(document).ready(function () {
+        $("#nav").load("navbar.html")
+      })
+    </script>
+    <p>Set your nickname here</p>
+    <form action="/createName" method="POST">
+      <input name="userName" />
+      <br />
+      <button onclick="loadAllComments()">Submit</button>
+    </form>
   </body>
 </html>
