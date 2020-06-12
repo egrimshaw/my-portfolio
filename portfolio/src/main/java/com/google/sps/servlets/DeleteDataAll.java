@@ -38,8 +38,7 @@ import javax.servlet.http.HttpServletResponse;
 public class DeleteDataAll extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Query query = new Query("Comments")
-                      .addSort("time", SortDirection.DESCENDING); // most recent comments first
+    Query query = new Query("Comments");
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
     PreparedQuery results = datastore.prepare(query);

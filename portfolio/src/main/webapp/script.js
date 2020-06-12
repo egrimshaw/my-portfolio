@@ -60,9 +60,44 @@ function loadComments() {
 }
 
 /*This function is called when refreshing the page. It fetches the comments up
-to the max amount determined by the max stored in session storage.*/
+to the max amount determined by the max stored in session storage. It also
+determines whether the user is logged in
+or not and displays either a log out or log in link at the bottom of the page.
+*/
 function loadAllComments() {
-  const url = '/load?numComments=' + sessionStorage.getItem('limit');
+  var loginStatus;
+  loginStatus =
+      fetch('/login')
+          .then(response => (response.json()))
+          .then((arrayString) => {
+            loginStatus = arrayString;  // get login status
+          })
+          .then(() => {
+            if (loginStatus === 'logout') {
+              const commentElement = document.getElementById('login-container');
+              const liTag = document.createElement('li');
+              const aTag = document.createElement('a');
+              aTag.appendChild(document.createTextNode('Click here to login.'));
+              aTag.href = '/loginPage';  // link to login
+              liTag.innerText = 'login';
+              commentElement.appendChild(aTag);
+            } else {
+              const commentElement = document.getElementById('login-container');
+              const liTag = document.createElement('li');
+              const aTag = document.createElement('a');
+              aTag.appendChild(
+                  document.createTextNode('Click here to logout.'));
+              aTag.href = '/loginPage';  // link to log out
+              liTag.innerText = 'logout';
+              commentElement.appendChild(aTag);
+              document.getElementById('commentForm').style.display =
+                  'block';  // display the add comment
+              // form because they are logged in
+            }
+          });
+
+  const url = '/load?numComments=' +
+      sessionStorage.getItem('limit');  // print max number of comments
   fetch(url).then(response => response.json()).then((arrayString) => {
     const commentElement = document.getElementById('comment-container');
     var olTag = document.createElement('ol');
@@ -75,6 +110,7 @@ function loadAllComments() {
       var commentCombined =
           '"' + arrayString[i].comment + '" -' + arrayString[i].commentName;
       titleElement.innerText = commentCombined;
+      console.log('hi' + commentCombined);
 
       const deleteButtonElement = document.createElement('button');
       deleteButtonElement.setAttribute('style', 'margin: 10px');
@@ -106,5 +142,5 @@ function deleteAllComments() {
 function deleteOneComment(commentToDelete) {
   const params = new URLSearchParams();
   params.append('id', commentToDelete.id);
-  fetch('/delete-data-indvidiual', {method: 'POST', body: params});
+  fetch('/delete-data-individual', {method: 'POST', body: params});
 }

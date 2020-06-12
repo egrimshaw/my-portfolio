@@ -27,6 +27,12 @@ This is the CSS file containing all the styles used throughout the code.
   color: black;
 }
 
+/*This is the style for the login output.*/
+#login-container {
+  margin-top: 20px;
+  color: black;
+}
+
 /*This is the style for the profile picture on the main page.*/
 #profilePic {
   max-width: 300px;

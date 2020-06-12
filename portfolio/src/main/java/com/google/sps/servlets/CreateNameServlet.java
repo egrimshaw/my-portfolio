@@ -24,56 +24,39 @@ import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gson.Gson;
+import com.google.sps.data.Comment;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/** Servlet that loads and saves comments. */
-@WebServlet("/data")
-public class DataServlet extends HttpServlet {
-  private List<String> commentArray = new ArrayList<String>();
-  private UserService userService = UserServiceFactory.getUserService();
-  private DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-
+/** Servlet that creates users names. */
+@WebServlet("/createName")
+public class CreateNameServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     Gson gson = new Gson();
-    String jsonArray = gson.toJson(commentArray);
-    response.setContentType("application/json; ");
-    response.getWriter().println(jsonArray);
+    response.setContentType("application/json; "); // in case need get function later
   }
 
+  @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String comment = request.getParameter("viewer-comment");
-    long timestamp = System.currentTimeMillis();
-    String name = null;
+    UserService userService = UserServiceFactory.getUserService();
+    String name = request.getParameter("userName"); // get name entered in form
+    String id = userService.getCurrentUser().getUserId();
 
-    if (userService.getCurrentUser() != null) { // if someone is logged in
-      Query query = new Query("Comments")
-                        .setFilter(new Query.FilterPredicate("id", Query.FilterOperator.EQUAL,
-                            userService.getCurrentUser().getUserId()));
-      PreparedQuery results = datastore.prepare(query);
-      Iterator<Entity> resultsList = results.asIterator();
-      if (resultsList.hasNext()){
-        Entity entity = resultsList.next();
-        name = (String) entity.getProperty("commentName"); //get user name
-      }
-    }
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    Entity entity = new Entity("Comments");
+    entity.setProperty("id", id);
+    entity.setProperty("commentName", name);
 
-    Entity commentEntity = new Entity("Comments");
+    // The put() function automatically inserts new data or updates existing data based on ID
+    datastore.put(entity);
 
-    if (comment != null
-        && !comment.equals("")) { // only add comment to entity list if there is text in comment
-      commentEntity.setProperty("comment", comment);
-      commentEntity.setProperty("commentName", name);
-      commentEntity.setProperty("time", timestamp);
-      datastore.put(commentEntity);
-    }
     response.sendRedirect("/commentform.html");
   }
 }
