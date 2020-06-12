@@ -1,0 +1,37 @@
+<!-- This is the HTML for the chart page. -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Favorite Chocolate</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="script.js"></script>
+    <!-- using Google's CDN library for jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  </head>
+  <body class="main-body" onload="drawChart()">
+    <div id="nav"></div>
+    <script>
+      $(document).ready(function () {
+        $("#nav").load("navbar.html")
+      })
+    </script>
+    <h1 style="text-algin: center;">Vote for your favorite kind of chocolate!</h1>
+    <form action="/chocolateData" method="POST">
+      <select name="chocolate">
+        <option value="White Chocolate"> White Chocolate </option>
+        <option value="Milk Chocolate"> Milk Chocolate </option>
+        <option value="Dark Chocolate"> Dark Chocolate </option>
+        <option value="Any Kind"> I love all chocolate! </option>
+      </select>
+      <button>Submit Vote!</button>
+    </form>
+    <br />
+    <br />
+    <div id="chart-container"></div>
+    <br />
+    <br />
+    <button onclick="deleteAllChocolate()">Clear Votes</button>
+  </body>
+</html>

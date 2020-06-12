@@ -24,56 +24,64 @@ import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gson.Gson;
+import com.google.sps.data.Comment;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/** Servlet that loads and saves comments. */
-@WebServlet("/data")
-public class DataServlet extends HttpServlet {
-  private List<String> commentArray = new ArrayList<String>();
-  private UserService userService = UserServiceFactory.getUserService();
+/** Servlet that creates votes. */
+@WebServlet("/chocolateData")
+public class ChocolateDataServlet extends HttpServlet {
+  private Map<String, Long> chocolateVotes = new HashMap<>();
   private DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    response.setContentType("application/jason; ");
     Gson gson = new Gson();
-    String jsonArray = gson.toJson(commentArray);
-    response.setContentType("application/json; ");
-    response.getWriter().println(jsonArray);
+    String json = gson.toJson(chocolateVotes);
+    response.getWriter().println(json);
   }
 
+  @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String comment = request.getParameter("viewer-comment");
+    String chocolate = request.getParameter("chocolate");
     long timestamp = System.currentTimeMillis();
-    String name = null;
+    long currentVotes = 0;
 
-    if (userService.getCurrentUser() != null) { // if someone is logged in
-      Query query = new Query("Comments")
-                        .setFilter(new Query.FilterPredicate("id", Query.FilterOperator.EQUAL,
-                            userService.getCurrentUser().getUserId()));
-      PreparedQuery results = datastore.prepare(query);
-      Iterator<Entity> resultsList = results.asIterator();
-      if (resultsList.hasNext()) {
-        Entity entity = resultsList.next();
-        name = (String) entity.getProperty("commentName"); // get user name
-      }
+    Query query = new Query("Chocolate")
+                      .setFilter(new Query.FilterPredicate(
+                          "chocolateType", Query.FilterOperator.EQUAL, chocolate));
+    query.addSort("time", SortDirection.DESCENDING); // get most recent vote count
+    PreparedQuery results = datastore.prepare(query);
+    Iterator<Entity> resultsList = results.asIterator();
+    Entity entity = null;
+    if (resultsList.hasNext()) {
+      entity = resultsList.next();
+    }
+    if (entity == null) {
+      currentVotes = 0;
+    } else {
+      currentVotes = (long) entity.getProperty("vote");
     }
 
-    Entity commentEntity = new Entity("Comments");
+    chocolateVotes.put(chocolate, currentVotes + 1);
 
-    if (comment != null
-        && !comment.equals("")) { // only add comment to entity list if there is text in comment
-      commentEntity.setProperty("comment", comment);
-      commentEntity.setProperty("commentName", name);
-      commentEntity.setProperty("time", timestamp);
-      datastore.put(commentEntity);
-    }
-    response.sendRedirect("/commentform.html");
+    Entity chocolateEntity = new Entity("Chocolate");
+    chocolateEntity.setProperty("chocolateType", chocolate);
+    chocolateEntity.setProperty("vote", currentVotes + 1);
+    chocolateEntity.setProperty("time", timestamp);
+
+    datastore.put(chocolateEntity);
+
+    response.sendRedirect("/chart.html");
   }
 }
