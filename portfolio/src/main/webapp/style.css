@@ -129,6 +129,12 @@ specifications. */
   text-decoration: none;
 }
 
+#map {
+  border: thin solid black;
+  height: 750px;
+  width: 100%;
+}
+
 .commentText {
   color: black;
   text-align: left;

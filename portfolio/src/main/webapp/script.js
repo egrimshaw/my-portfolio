@@ -145,10 +145,11 @@ function deleteOneComment(commentToDelete) {
   fetch('/delete-data-individual', {method: 'POST', body: params});
 }
 
+
 google.charts.load('current', {'packages': ['corechart']});
 google.charts.setOnLoadCallback(drawChart);
-
 function drawChart() {
+
   fetch('/chocolateData')
       .then(response => response.json())
       .then((chocolateVotes) => {
@@ -185,4 +186,64 @@ function deleteAllChocolate() {
         document.getElementById('chart-container'));
     chart.draw(data, options);
   });
+}
+
+function createMap(){
+    const map = new google.maps.Map(
+      document.getElementById('map'),
+      {center: {lat: 42.3736, lng: -71.1097}, zoom: 16});
+    
+    var darwinsContent = '<p> I have been ordering sandwiches from Darwins for 14 years. At one point, I was ordering two sandwiches' +
+                         ' from them a day! My favorite is the Rindge or the Memorial on a wrap. To learn more and see their menu, visit their webiste:' +
+                         '<a href = "https://www.darwinsltd.com/"> https://www.darwinsltd.com/ </a>'; 
+
+    var darwinsInfoWindow = new google.maps.InfoWindow({
+        content: darwinsContent
+    });
+    
+    var darwinsMarker = new google.maps.Marker({
+        position: {lat: 42.3740, lng: -71.1251},
+        map: map, 
+        title: 'Favorite sandwich shop!'
+    });
+
+    darwinsMarker.addListener('click', function(){
+        darwinsInfoWindow.open(map, darwinsMarker);
+    });
+
+    var jpContent = '<p> Whenever my brother is in town from NYC, we go to JP Licks every night. My favorite flavor is Brownie Brownie Batter or ' + 
+                    'Black Raspberry with gummy bears on top. I also recently discovered their cookiewiches, which are super yummy. Visit their website ' +
+                    'to see all of their cool flavors, cakes and frappes: <a href = "https://jplicks.com/#ice-cream"> https://jplicks.com/#ice-cream </a>';
+
+    var jpInfoWindow = new google.maps.InfoWindow({
+        content: jpContent
+    });
+
+    var jpMarker = new google.maps.Marker({
+        position: {lat: 42.3729, lng: -71.1176}, 
+        map: map,
+        title: 'Favorite ice cream shop!'
+    });
+
+    jpMarker.addListener('click', function(){
+        jpInfoWindow.open(map, jpMarker);
+    });
+
+    var flourContent = '<p> Flour Bakery opened in Harvard Square a few years ago and I have been obsessed ever since. My go to order is a chopped greek salad ' +
+                       'with a chocolate muffin on the side. I wrote a profile for an english project in high school on the founder, Joanne Chang! To see all of their ' +
+                       'yummy pastries, visit their website: <a href = "https://flourbakery.com/"> https://flourbakery.com/ </a>';
+
+    var flourInfoWindow = new google.maps.InfoWindow({
+        content: flourContent
+    });
+
+    var flourMarker = new google.maps.Marker({
+        position: {lat: 42.373538, lng: -71.118957}, 
+        map: map,
+        title: 'Favorite bakery!'
+    });
+
+    flourMarker.addListener('click', function(){
+        flourInfoWindow.open(map, flourMarker);
+    });
 }
