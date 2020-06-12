@@ -45,7 +45,7 @@ public class ChocolateDataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Query query = new Query("Chocolate");
+    Query query = new Query("Chocolate"); // load stored votes
     PreparedQuery results = datastore.prepare(query);
 
     for (Entity entity : results.asIterable()) {
@@ -57,10 +57,6 @@ public class ChocolateDataServlet extends HttpServlet {
     Gson gson = new Gson();
     response.setContentType("application/json;");
     response.getWriter().println(gson.toJson(chocolateVotes));
-    // response.setContentType("application/jason; ");
-    // Gson gson = new Gson();
-    // String json = gson.toJson(chocolateVotes);
-    // response.getWriter().println(json);
   }
 
   @Override
@@ -80,16 +76,14 @@ public class ChocolateDataServlet extends HttpServlet {
       entity = resultsList.next();
     }
     if (entity == null) {
-      System.out.println("null");
       currentVotes = 1;
     } else {
-      System.out.println("not null");
       currentVotes = (long) entity.getProperty("vote") + 1;
     }
 
-    chocolateVotes.put(chocolate, currentVotes);
+    chocolateVotes.put(chocolate, currentVotes); // update hash map
 
-    Entity chocolateEntity = new Entity("Chocolate");
+    Entity chocolateEntity = new Entity("Chocolate"); // update datastore
     chocolateEntity.setProperty("chocolateType", chocolate);
     chocolateEntity.setProperty("vote", currentVotes);
     chocolateEntity.setProperty("time", timestamp);

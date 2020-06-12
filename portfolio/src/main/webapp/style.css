@@ -129,12 +129,14 @@ specifications. */
   text-decoration: none;
 }
 
+/*This is the style for the maps box. */
 #map {
   border: thin solid black;
   height: 750px;
   width: 100%;
 }
 
+/*This is the style for the comment text.*/
 .commentText {
   color: black;
   text-align: left;
